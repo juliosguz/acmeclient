@@ -1,0 +1,43 @@
+<mat-toolbar color="accent">
+  <span><img src="../../assets/images/acmelogo.jpg" height=30 width=41></span>
+  <a mat-button routerLink="/home"><span class="fa fa-home fa-lg"></span> Home</a>
+  <button mat-button [matMenuTriggerFor]="menuEmployee"><span class="fa fa-user fa-lg"></span>Employee</button>
+  <mat-menu #menuEmployee="matMenu">
+    <button mat-menu-item routerLink="/contact">Register</button>
+    <button mat-menu-item routerLink="/position">Position</button>
+    <button mat-menu-item routerLink="/training">Training</button>
+  </mat-menu>
+  <a mat-button routerLink="/implement"><span class="fa fa-code-fork fa-lg"></span> Implement</a>
+  <a mat-button routerLink="/catalog"><span class="fa fa-list fa-lg"></span> Catalog</a>
+  <a mat-button routerLink="/contact"><span class="fa fa-address-card fa-lg"></span> Contact</a>
+
+  <button mat-button [matMenuTriggerFor]="menuReport"><span class="fa fa-user fa-lg"></span>Report</button>
+  <mat-menu #menuReport="matMenu">
+    <button mat-menu-item routerLink="/accidentReport">Accident</button>
+    <button mat-menu-item routerLink="/incidentReport">Incident</button>
+  </mat-menu>
+  <a mat-button routerLink="/about"><span class="fa fa-info fa-lg"></span> About</a>
+  <span class="flex-spacer"></span>
+  <a mat-button (click)="openLoginForm()"><span class="fa fa-sign-in fa-lg"></span> Login</a>
+
+</mat-toolbar>
+
+<div class="container jumbotron"
+     fxLayout="row"
+     fxLayout.sm="column"
+     fxLayout.xs="column"
+     fxLayoutAlign.xs="start center"
+     fxLayoutAlign.sm="start center"
+     fxLayoutAlign.gt-sm="center center"
+     fxLayoutGap="10px">
+
+  <div fxFlex fxFlex.gt-sm="50%">
+    <h1>SSI</h1>
+    <p>We take inspiration from the World's best safety practices, and create a unique fusion experience. Our awesome safety protection items
+      will tickle your safety vision!</p>
+  </div>
+  <div fxFlex fxFlex.gt-sm="20%">
+    <img src="../../assets/images/acmelogo.jpg" alt="Logo" width="200" height="200">
+  </div>
+  <div fxFlex></div>
+</div>
