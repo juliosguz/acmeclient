@@ -46,4 +46,25 @@ export class EmployeeService {
         return error;
       });
   }
+
+  addEmployee(employee: Employee): void {
+    this.http.post(baseURL + 'employees/', employee).catch(error => {
+      console.log('error: ' + error);
+      return error;
+    });
+  }
+
+  updateEmployee(employee: Employee): void {
+    this.http.put(baseURL + 'employees/', employee).catch(error => {
+      console.log('error: ' + error);
+      return error;
+    });
+  }
+
+  deleteEmployee(id: number): void {
+    this.http.delete(baseURL + 'employees/' + id).catch(error => {
+      console.log('error' + error);
+      return error;
+    });
+  }
 }

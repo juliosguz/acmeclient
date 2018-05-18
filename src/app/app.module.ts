@@ -55,6 +55,9 @@ import {AngularFontAwesomeModule} from 'angular-font-awesome';
 import {CatalogComponent} from './catalog/catalog.component';
 import {TrainingComponent} from './training/training.component';
 import {EmployeeComponent} from './employee/employee.component';
+import {AddComponent} from './employee/dialog/add/add.component';
+import {EditComponent} from './employee/dialog/edit/edit.component';
+import {DeleteComponent} from './employee/dialog/delete/delete.component';
 
 
 @NgModule({
@@ -69,7 +72,10 @@ import {EmployeeComponent} from './employee/employee.component';
     LoginComponent,
     CatalogComponent,
     TrainingComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    AddComponent,
+    EditComponent,
+    DeleteComponent
   ],
   imports: [
     BrowserModule,
