@@ -58,6 +58,7 @@ import {EmployeeComponent} from './employee/employee.component';
 import {AddComponent} from './employee/dialog/add/add.component';
 import {EditComponent} from './employee/dialog/edit/edit.component';
 import {DeleteComponent} from './employee/dialog/delete/delete.component';
+import {EmployeeService} from './services/employee.service';
 
 
 @NgModule({
@@ -94,10 +95,15 @@ import {DeleteComponent} from './employee/dialog/delete/delete.component';
   ],
   providers: [
     PositionService,
+    EmployeeService,
     {provide: 'BaseURL', useValue: baseURL}
   ],
   entryComponents: [
-    LoginComponent
+    LoginComponent,
+    AddComponent,
+    EditComponent,
+    DeleteComponent
+
   ],
   bootstrap: [AppComponent]
 })

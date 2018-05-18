@@ -31,7 +31,7 @@ export class AddComponent implements OnInit {
     //
   }
 
-  onNoClick(): void {
+  onCancelClick(): void {
     this.dialogRef.close();
   }
 

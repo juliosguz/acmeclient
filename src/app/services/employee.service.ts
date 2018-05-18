@@ -1,16 +1,32 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {baseURL} from '../shared/baseUrl';
 import {Employee} from '../shared/employee';
+import 'rxjs/add/operator/map';
+import 'rxjs/operator/delay';
+import 'rxjs/operator/mergeMap';
+import 'rxjs/operator/switchMap';
+import {map} from 'rxjs/operators';
 
 @Injectable()
 export class EmployeeService {
+  dataChange: BehaviorSubject<Employee[]> = new BehaviorSubject<Employee[]>([]);
+  // Temporarily stores data from dialogs
+  dialogData: any;
 
   constructor(private http: HttpClient) {
   }
 
-  getEmployees(): Observable<any> {
+  get data(): Employee[] {
+    return this.dataChange.value;
+  }
+
+  getDialogData() {
+    return this.dialogData;
+  }
+
+  /*getEmployees(): Observable<any> {
     return this.http.get(baseURL + 'employees')
       .map((res) => {
         return res;
@@ -18,6 +34,12 @@ export class EmployeeService {
         console.log('error: ' + error);
         return error;
       });
+  }*/
+  getEmployees(): Observable<any> {
+    return this.http.get(baseURL + 'employees')
+      .pipe(map((res) => {
+        return res;
+      }));
   }
 
   getEmployee(id: number): Observable<Employee> {
