@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {baseURL} from '../shared/baseUrl';
 import {Employee} from '../shared/employee';
@@ -7,7 +7,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/operator/delay';
 import 'rxjs/operator/mergeMap';
 import 'rxjs/operator/switchMap';
-import {map} from 'rxjs/operators';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/catch';
+
 
 @Injectable()
 export class EmployeeService {
@@ -26,20 +28,13 @@ export class EmployeeService {
     return this.dialogData;
   }
 
-  /*getEmployees(): Observable<any> {
-    return this.http.get(baseURL + 'employees')
-      .map((res) => {
-        return res;
-      }).catch(error => {
-        console.log('error: ' + error);
-        return error;
+  getAllEmployees(): void {
+    this.http.get<Employee[]>(baseURL + 'employees').subscribe(data => {
+        this.dataChange.next(data);
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + ' ' + error.message);
       });
-  }*/
-  getEmployees(): Observable<any> {
-    return this.http.get(baseURL + 'employees')
-      .pipe(map((res) => {
-        return res;
-      }));
   }
 
   getEmployee(id: number): Observable<Employee> {
@@ -59,28 +54,24 @@ export class EmployeeService {
       });
   }
 
-  getEmployeeIds(): Observable<number[]> {
-    return this.getEmployees()
-      .map(employees => {
-        return employees.map(employee => employee.id);
-      }).catch(error => {
-        console.log('error: ' + error);
-        return error;
+  addEmployee(employee: Employee): void {
+    this.http.post(baseURL + 'employees', employee).subscribe(data => {
+        this.dialogData = employee;
+        console.log('Successfully added');
+      },
+      (err: HttpErrorResponse) => {
+        console.log('Error occurred. Details: ' + err.name + ' ' + err.message);
       });
   }
 
-  addEmployee(employee: Employee): void {
-    this.http.post(baseURL + 'employees/', employee).catch(error => {
-      console.log('error: ' + error);
-      return error;
-    });
-  }
-
   updateEmployee(employee: Employee): void {
-    this.http.put(baseURL + 'employees/', employee).catch(error => {
-      console.log('error: ' + error);
-      return error;
-    });
+    this.http.put(baseURL + 'employees', employee).subscribe(data => {
+        this.dialogData = employee;
+        console.log('Successfully updated');
+      },
+      (err: HttpErrorResponse) => {
+        console.log('Error occurred. Details: ' + err.name + ' ' + err.message);
+      });
   }
 
   deleteEmployee(id: number): void {

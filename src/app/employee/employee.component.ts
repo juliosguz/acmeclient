@@ -16,7 +16,7 @@ import {DataSource} from '@angular/cdk/table';
   providers: [EmployeeService]
 })
 export class EmployeeComponent implements OnInit {
-  displayedColumns = ['id', 'title', 'state', 'url', 'created_at', 'updated_at', 'actions'];
+  displayedColumns = ['id', 'firstName', 'lastName', 'phone', 'jobPosition', 'created_at', 'updated_at', 'actions'];
   dataBase: EmployeeService | null;
   dataSource: ExampleDataSource | null;
   index: number;
@@ -49,18 +49,23 @@ export class EmployeeComponent implements OnInit {
         // After dialog is closed we're doing frontend updates
         // For add we're just pushing a new row inside DataService
         this.dataBase.dataChange.value.push(this.employeeService.getDialogData());
+        this.loadData();
         this.refreshTable();
       }
     });
   }
 
-  startEdit(i: number, id: number, title: string, state: string, url: string, created_at: string, updated_at: string) {
+  startEdit(i: number, id: number, firstName: string, lastName: string, phone: string,
+            jobPosition: string, created_at: string, updated_at: string) {
     this.id = id;
     // index row is used just for debugging proposes and can be removed
     this.index = i;
     console.log(this.index);
     const dialogRef = this.dialog.open(EditComponent, {
-      data: {id: id, title: title, state: state, url: url, created_at: created_at, updated_at: updated_at}
+      data: {
+        id: id, firstName: firstName, lastName: lastName, phone: phone, jobPosition: jobPosition,
+        created_at: created_at, updated_at: updated_at
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -75,11 +80,15 @@ export class EmployeeComponent implements OnInit {
     });
   }
 
-  deleteItem(i: number, id: number, title: string, state: string, url: string) {
+  deleteItem(i: number, id: number, firstName: string, lastName: string, phone: string,
+             jobPosition: string, created_at: string, updated_at: string) {
     this.index = i;
     this.id = id;
     const dialogRef = this.dialog.open(DeleteComponent, {
-      data: {id: id, title: title, state: state, url: url}
+      data: {
+        id: id, firstName: firstName, lastName: lastName, phone: phone, jobPosition: jobPosition,
+        created_at: created_at, updated_at: updated_at
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -158,13 +167,16 @@ export class ExampleDataSource extends DataSource<Employee> {
       this._paginator.page
     ];
 
-    this._employeeData.getEmployees();
+    console.log('beforeeeee');
+    this._employeeData.getAllEmployees();
 
     return Observable.merge(...displayDataChanges).map(() => {
       // Filter data
       this.filteredData = this._employeeData.data.slice().filter((employee: Employee) => {
-        const searchStr = (employee.id + employee.name + employee.jobCode + employee.featured).toLowerCase();
-        return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
+        if (employee !== undefined) {
+          const searchStr = (employee.id + employee.firstName + employee.lastName + employee.jobPosition + employee.featured).toLowerCase();
+          return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
+        }
       });
 
       // Sort filtered data
@@ -195,21 +207,27 @@ export class ExampleDataSource extends DataSource<Employee> {
         case 'id':
           [propertyA, propertyB] = [a.id, b.id];
           break;
-        case 'name':
-          [propertyA, propertyB] = [a.name, b.name];
+        case 'firstName':
+          [propertyA, propertyB] = [a.firstName, b.firstName];
           break;
-        case 'state':
-          [propertyA, propertyB] = [a.jobCode, b.jobCode];
+        case 'lastName':
+          [propertyA, propertyB] = [a.lastName, b.lastName];
           break;
-        case 'url':
-          [propertyA, propertyB] = [a.name, b.name];
+        case 'phone':
+          [propertyA, propertyB] = [a.phone, b.phone];
           break;
-        case 'created_at':
-          [propertyA, propertyB] = [a.jobDescription, b.jobDescription];
+        case 'email':
+          [propertyA, propertyB] = [a.email, b.email];
           break;
-        case 'updated_at':
+        case 'jobPosition':
           [propertyA, propertyB] = [a.jobPosition, b.jobPosition];
           break;
+        /* case 'created_at':
+           [propertyA, propertyB] = [a.jobDescription, b.jobDescription];
+           break;
+         case 'updated_at':
+           [propertyA, propertyB] = [a.jobPosition, b.jobPosition];*/
+        // break;
       }
 
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;

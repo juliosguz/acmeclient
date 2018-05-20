@@ -3,16 +3,16 @@
   <div mat-dialog-content>
     Id: {{data.id}}
     <p></p>
-    Title: {{data.title}}
+    First Name: {{data.firstName}}
     <p></p>
-    State: {{data.state}}
+    Last Name: {{data.lastName}}
     <p></p>
-    Url: {{data.url}}
+    Job Position: {{data.jobPosition}}
     <p></p>
   </div>
 
   <div mat-dialog-actions>
     <button mat-button [mat-dialog-close]="1" (click)="confirmDelete()">Delete</button>
-    <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+    <button mat-button (click)="onCancelClick()" tabindex="-1">Cancel</button>
   </div>
 </div>

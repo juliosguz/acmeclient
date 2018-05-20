@@ -13,7 +13,7 @@ export class DeleteComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any, public employeeService: EmployeeService) {
   }
 
-  onNoClick(): void {
+  onCancelClick(): void {
     this.dialogRef.close();
   }
 
