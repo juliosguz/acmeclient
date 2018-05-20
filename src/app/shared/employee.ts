@@ -4,6 +4,8 @@ export interface Employee {
   lastName: string;
   phone: string;
   email: string;
+  address: string;
+  dni: string;
   image: string;
   jobPosition: string;
   jobCode: string;

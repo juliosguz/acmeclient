@@ -38,7 +38,7 @@
 
     <ng-container matColumnDef="address">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Address</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.Address}}</mat-cell>
+      <mat-cell *matCellDef="let row"> {{row.address}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="email">
@@ -51,19 +51,14 @@
       <mat-cell *matCellDef="let row"> {{row.phone}}</mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="dni">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>DNI</mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.dni}}</mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="jobPosition">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Job Position</mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.jobPosition}}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="created_at">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Created at</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.created_at}}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="updated_at">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Updated at</mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.updated_at}}</mat-cell>
     </ng-container>
 
     <!-- actions -->
@@ -76,7 +71,7 @@
 
       <mat-cell *matCellDef="let row; let i=index;">
         <button mat-icon-button color="accent"
-                (click)="startEdit(i, row.id, row.firstName, row.lastName, row.phone, row.email, row.address, row.jobPosition)">
+                (click)="startEdit(i, row.id, row.firstName, row.lastName, row.address, row.phone, row.email, row.dni, row.address, row.jobPosition)">
           <mat-icon aria-label="Edit">edit</mat-icon>
         </button>
 

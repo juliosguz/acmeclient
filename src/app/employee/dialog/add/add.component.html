@@ -24,7 +24,7 @@
 
     <div class="form">
       <mat-form-field color="accent">
-        <textarea matInput #input class="form-control" placeholder="Address" [(ngModel)]="data.firstName" name="address"
+        <textarea matInput #input class="form-control" placeholder="Address" [(ngModel)]="data.address" name="address"
                   required></textarea>
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
@@ -41,8 +41,17 @@
 
     <div class="form">
       <mat-form-field color="accent">
-        <textarea matInput #input class="form-control" placeholder="Email" [(ngModel)]="data.firstName" name="email">
+        <textarea matInput #input class="form-control" placeholder="Email" [(ngModel)]="data.email" name="email">
         </textarea>
+        <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <textarea matInput #input class="form-control" placeholder="DNI" [(ngModel)]="data.dni"
+                  name="dni"
+                  required></textarea>
         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>
@@ -52,18 +61,6 @@
         <input matInput placeholder="Job Position" [(ngModel)]="data.jobPosition" name="job Position">
       </mat-form-field>
     </div>
-
-    <div class="form">
-      <mat-form-field color="accent">
-        <input matInput placeholder="Created at" [(ngModel)]="data.image" name="created_at">
-      </mat-form-field>
-    </div>
-
-    <!--  <div class="form">
-        <mat-form-field color="accent">
-          <input matInput placeholder="Updated at" [(ngModel)]="data" name="updated_at">
-        </mat-form-field>
-      </div>-->
 
     <div mat-dialog-actions>
       <button mat-button [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="confirmAdd()">

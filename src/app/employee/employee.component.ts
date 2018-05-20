@@ -16,7 +16,7 @@ import {DataSource} from '@angular/cdk/table';
   providers: [EmployeeService]
 })
 export class EmployeeComponent implements OnInit {
-  displayedColumns = ['id', 'firstName', 'lastName', 'phone', 'jobPosition', 'created_at', 'updated_at', 'actions'];
+  displayedColumns = ['id', 'firstName', 'lastName', 'address', 'phone', 'email', , 'dni', 'jobPosition', 'actions'];
   dataBase: EmployeeService | null;
   dataSource: ExampleDataSource | null;
   index: number;
@@ -55,16 +55,15 @@ export class EmployeeComponent implements OnInit {
     });
   }
 
-  startEdit(i: number, id: number, firstName: string, lastName: string, phone: string,
-            jobPosition: string, created_at: string, updated_at: string) {
+  startEdit(i: number, id: number, firstName: string, lastName: string, address: string, phone: string,
+            email: string, dni: string, jobPosition: string) {
     this.id = id;
     // index row is used just for debugging proposes and can be removed
     this.index = i;
     console.log(this.index);
     const dialogRef = this.dialog.open(EditComponent, {
       data: {
-        id: id, firstName: firstName, lastName: lastName, phone: phone, jobPosition: jobPosition,
-        created_at: created_at, updated_at: updated_at
+        id: id, firstName: firstName, lastName: lastName, address: address, phone: phone, email: email, dni: dni, jobPosition: jobPosition
       }
     });
 
@@ -80,14 +79,13 @@ export class EmployeeComponent implements OnInit {
     });
   }
 
-  deleteItem(i: number, id: number, firstName: string, lastName: string, phone: string,
-             jobPosition: string, created_at: string, updated_at: string) {
+  deleteItem(i: number, id: number, firstName: string, lastName: string, address: string, phone: string,
+             email: string, dni: string, jobPosition: string) {
     this.index = i;
     this.id = id;
     const dialogRef = this.dialog.open(DeleteComponent, {
       data: {
-        id: id, firstName: firstName, lastName: lastName, phone: phone, jobPosition: jobPosition,
-        created_at: created_at, updated_at: updated_at
+        id: id, firstName: firstName, lastName: lastName, address: address, phone: phone, email: email, jobPosition: jobPosition
       }
     });
 
@@ -174,7 +172,8 @@ export class ExampleDataSource extends DataSource<Employee> {
       // Filter data
       this.filteredData = this._employeeData.data.slice().filter((employee: Employee) => {
         if (employee !== undefined) {
-          const searchStr = (employee.id + employee.firstName + employee.lastName + employee.jobPosition + employee.featured).toLowerCase();
+          const searchStr = (employee.id + employee.firstName + employee.lastName + employee.dni + employee.jobPosition +
+            employee.featured).toLowerCase();
           return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
         }
       });
@@ -213,11 +212,17 @@ export class ExampleDataSource extends DataSource<Employee> {
         case 'lastName':
           [propertyA, propertyB] = [a.lastName, b.lastName];
           break;
+        case 'address':
+          [propertyA, propertyB] = [a.address, b.address];
+          break;
         case 'phone':
           [propertyA, propertyB] = [a.phone, b.phone];
           break;
         case 'email':
           [propertyA, propertyB] = [a.email, b.email];
+          break;
+        case 'dni':
+          [propertyA, propertyB] = [a.dni, b.dni];
           break;
         case 'jobPosition':
           [propertyA, propertyB] = [a.jobPosition, b.jobPosition];
