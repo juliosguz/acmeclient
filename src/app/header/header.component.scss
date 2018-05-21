@@ -2,3 +2,17 @@ $background-moredark: #673ab7;
 .active {
   background: $background-moredark;
 }
+
+.header {
+  background-color: #ea5a5a;
+
+  a[mat-button],
+  button[mat-button] {
+    color: #fef8f8;
+    font-weight: 400;
+  }
+
+  .fa:before {
+    margin-right: 5px;
+  }
+}
